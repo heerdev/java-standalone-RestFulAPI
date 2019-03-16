@@ -2,11 +2,13 @@ package server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import factory.DBConnectionFactory;
 import model.BankLocation;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +50,9 @@ public class HttpRequestHandler {
 
 
    public static class PostBankLocation implements HttpHandler {
+
         public void handle(HttpExchange he) throws IOException {
+
             if(!he.getRequestMethod().equalsIgnoreCase("post")){
                 he.sendResponseHeaders(404, "invalid request".length());
                 OutputStream os = he.getResponseBody();
@@ -66,8 +70,8 @@ public class HttpRequestHandler {
 
 
             BankLocation bankLocation = mapper.readValue(query,BankLocation.class);
-
-
+            String insertBankLocation="INSERT INTO BANK_LOCATION VALUES("+bankLocation.getBranchId()+","+"'"+bankLocation.getAddress().trim().toString()+"'"+")";
+            DBConnectionFactory.extecuteStatment(insertBankLocation);
             parseQuery(query, parameters);
 
             // send response
