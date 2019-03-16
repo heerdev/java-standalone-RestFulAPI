@@ -51,11 +51,15 @@ public class DBProvider {
 
             try {
                 this.statement = connection.createStatement();
-                for (String script: DBSchema.getSchemaScript()) {
+                for (String script: DBSchema.cleanSchemaScript()) {
                     statement.executeUpdate(script);
                     System.out.println(">>"+script);
                 }
 
+                for (String script: DBSchema.createTableScript()) {
+                    statement.executeUpdate(script);
+                    System.out.println(">>"+script);
+                }
 
                 System.out.println("Created table in given database...");
             } catch (SQLException e) {
