@@ -21,7 +21,6 @@ public class PostBankLocationController implements HttpHandler {
             os.close();
         }
 
-
         Map<String, Object> parameters = new HashMap<>();
         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
