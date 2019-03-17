@@ -11,11 +11,12 @@ public class MoneyTransferBook {
     private Date paymentDate;
 
     public MoneyTransferBook(){};
-    public MoneyTransferBook(boolean bookPayment, String beneficiaryAccount, float amount, boolean scheduledPayment, Date paymentDate) {
-        this.isBookPayment = bookPayment;
+
+    public MoneyTransferBook(boolean isBookPayment, String beneficiaryAccount, float amount, boolean isScheduledPayment, Date paymentDate) {
+        this.isBookPayment = isBookPayment;
         this.beneficiaryAccount = beneficiaryAccount;
         this.amount = amount;
-        this.isScheduledPayment = scheduledPayment;
+        this.isScheduledPayment = isScheduledPayment;
         this.paymentDate = paymentDate;
     }
 
@@ -57,5 +58,16 @@ public class MoneyTransferBook {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    @Override
+    public String toString() {
+        return "MoneyTransferBook{" +
+                "isBookPayment=" + isBookPayment +
+                ", beneficiaryAccount='" + beneficiaryAccount + '\'' +
+                ", amount=" + amount +
+                ", isScheduledPayment=" + isScheduledPayment +
+                ", paymentDate=" + paymentDate +
+                '}';
     }
 }
