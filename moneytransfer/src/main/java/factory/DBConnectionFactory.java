@@ -62,18 +62,18 @@ static final String JDBC_DRIVER = "org.h2.Driver";
 
     }
 
-    public static void extecuteStatment(String query){
+    public static int extecuteStatment(String query){
         System.out.println("executing statement " +query);
-
+        int rowCount=0;
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+            rowCount= statement.executeUpdate(query);
             System.out.println("Executed  query :>>"+query);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return  rowCount;
     }
 
     public static ResultSet getResultSet(String query){

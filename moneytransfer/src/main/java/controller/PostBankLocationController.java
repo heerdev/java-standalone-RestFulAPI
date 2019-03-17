@@ -47,7 +47,8 @@ public class PostBankLocationController implements HttpHandler {
         ObjectMapper mapper = new ObjectMapper();
         BankLocation bankLocation = mapper.readValue(query,BankLocation.class);
         String insertBankLocation="INSERT INTO BANK_LOCATION VALUES("+bankLocation.getBranchId()+","+"'"+bankLocation.getAddress().trim().toString()+"'"+")";
-        DBConnectionFactory.extecuteStatment(insertBankLocation);
+        int rowinsterted= DBConnectionFactory.extecuteStatment(insertBankLocation);
+        System.out.println(rowinsterted);
     }
 
 
