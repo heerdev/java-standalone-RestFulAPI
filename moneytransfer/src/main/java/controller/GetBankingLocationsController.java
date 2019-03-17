@@ -13,8 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 
-public class GetBankingLocations implements HttpHandler {
+public class GetBankingLocationsController implements HttpHandler {
 
+    @Override
     public void handle(HttpExchange t) throws IOException {
         if(!t.getRequestMethod().equalsIgnoreCase("get")){
             t.sendResponseHeaders(404, "invalid request".length());

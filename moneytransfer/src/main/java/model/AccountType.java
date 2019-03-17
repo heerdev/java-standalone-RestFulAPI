@@ -9,6 +9,7 @@ public class AccountType {
         this.accountTypeId = accountTypeId;
         this.accountType = accountType;
     }
+    public AccountType(){}
 
     public int getAccountTypeId() {
         return accountTypeId;

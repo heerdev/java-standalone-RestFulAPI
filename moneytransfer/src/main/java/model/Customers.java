@@ -12,6 +12,7 @@ public class Customers {
         this.customerInfo = customerInfo;
     }
 
+    public Customers(){}
     public int getCustomerId() {
         return customerId;
     }

@@ -16,6 +16,8 @@ public class BillingAccounts {
         this.comments = comments;
     }
 
+    public BillingAccounts(){}
+
     public int getBillingId() {
         return billingId;
     }

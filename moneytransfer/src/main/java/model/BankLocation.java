@@ -10,6 +10,8 @@ public class BankLocation {
         this.address = address;
     }
 
+    public BankLocation() {}
+
     public int getBranchId() {
         return branchId;
     }
