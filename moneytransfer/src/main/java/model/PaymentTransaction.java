@@ -13,11 +13,12 @@ public class PaymentTransaction {
     private String currency;
     private String tranferType;
     private String crDr;
+    private String bic;
 
 
     public PaymentTransaction(){};
 
-    public PaymentTransaction(int id, String cr_account, String dr_account, String sender_ref, Date txn_dt, float amount, String currency, String tranferType, String crDr) {
+    public PaymentTransaction(int id, String cr_account, String dr_account, String sender_ref, Date txn_dt, float amount, String currency, String tranferType, String crDr, String bic) {
         this.id = id;
         this.cr_account = cr_account;
         this.dr_account = dr_account;
@@ -27,6 +28,7 @@ public class PaymentTransaction {
         this.currency = currency;
         this.tranferType = tranferType;
         this.crDr = crDr;
+        this.bic = bic;
     }
 
     public int getId() {
@@ -99,5 +101,13 @@ public class PaymentTransaction {
 
     public void setCrDr(String crDr) {
         this.crDr = crDr;
+    }
+
+    public String getBic() {
+        return bic;
+    }
+
+    public void setBic(String bic) {
+        this.bic = bic;
     }
 }

@@ -18,10 +18,10 @@ public class  DBSchema {
     public static final String bankLocation ="CREATE TABLE  BANK_LOCATION (branch_id INTEGER  not null, address varchar(255),PRIMARY KEY (branch_id))";
     public static final String customer="CREATE TABLE  CUSTOMERS (customer_id INTEGER  not null, customer_name varchar(255), customer_info varchar(255),PRIMARY KEY (customer_id))";
     public static final String billingAccount="CREATE TABLE  BILLING_ACCOUNTS (billing_id INTEGER  not null,customer_id INTEGER  not null, account_id INTEGER  not null,bill_amount float, comments varchar(255),PRIMARY KEY (billing_id))";
-    public static final String accounts="CREATE TABLE  ACCOUNTS (account_id INTEGER  not null, customer_id INTEGER  not null,account_type_id INTEGER  not null,account_nmer int,balance float,PRIMARY KEY (account_id))";
+    public static final String accounts="CREATE TABLE  ACCOUNTS (account_id INTEGER  not null, customer_id INTEGER  not null,account_type_id INTEGER  not null,account_number int,balance float,PRIMARY KEY (account_id))";
     public static final String accountType="CREATE TABLE  ACCOUNT_TYPE (account_type_id INTEGER  not null, account_type varchar(255),PRIMARY KEY (account_type_id))";
 
-    public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null,cr_account INTEGER not null,dr_account INTEGER not null, sender_ref varchar(255),txn_dt Date not null,amount float not null,currency varchar(255) not null, transfer_type varchar(255) not null, CrDr varchar(10),PRIMARY KEY (pymt_txn_id))";
+    public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null,cr_account INTEGER not null,dr_account INTEGER not null, sender_ref varchar(255),txn_dt Date not null,amount float not null,currency varchar(255) not null, transfer_type varchar(255) not null, CrDr varchar(10),bic varchar(255),PRIMARY KEY (pymt_txn_id))";
 
     public static Set<String> cleanSchemaScript(){
         Set<String> scripts=new HashSet<String>();
