@@ -7,10 +7,7 @@ import model.BankLocation;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.*;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PostBankLocationController implements HttpHandler {
@@ -20,7 +17,7 @@ public class PostBankLocationController implements HttpHandler {
         if(!he.getRequestMethod().equalsIgnoreCase("post")){
             he.sendResponseHeaders(404, "invalid request".length());
             OutputStream os = he.getResponseBody();
-            os.write("invalid request".toString().getBytes());
+            os.write("invalid request".getBytes());
             os.close();
         }
 
@@ -29,24 +26,25 @@ public class PostBankLocationController implements HttpHandler {
         InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
+        int httpCode=0;
+        String responsBodyText=null;
 
         int rowCount=saveBankLocation(query);
 
         if(rowCount==0){
-            he.sendResponseHeaders(409, "Conflict".length());
-            OutputStream os = he.getResponseBody();
-            os.write("record already present".toString().getBytes());
-            os.close();
+            httpCode=409;
+            responsBodyText="COULD NOT SAVE THE ENTITY";
         }else if (rowCount==1){
-            he.sendResponseHeaders(202, "create".length());
-            OutputStream os = he.getResponseBody();
-            os.write("entiry saved".toString().getBytes());
-            os.close();
+            httpCode=202;
+            responsBodyText="Entity Saved successfully";
         }
         // send response
-        he.sendResponseHeaders(400, "BAD REQUEST".length());
+        String response = responsBodyText;
+        for (String key : parameters.keySet())
+            response += key + " = " + parameters.get(key) + "\n";
+        he.sendResponseHeaders(httpCode, response.length());
         OutputStream os = he.getResponseBody();
-        os.write("NOT ALLOWED".toString().getBytes());
+        os.write(response.getBytes());
         os.close();
 
     }
