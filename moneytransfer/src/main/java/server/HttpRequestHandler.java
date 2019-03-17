@@ -5,10 +5,13 @@ import com.sun.net.httpserver.HttpHandler;
 import factory.DBConnectionFactory;
 import model.BankLocation;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.h2.result.Row;
 
 import java.io.*;
 import java.net.URLDecoder;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,23 @@ public class HttpRequestHandler {
                 os.close();
             }
 
+            String selectBankLocations="select * from bank_location";
+            ResultSet resultSet=DBConnectionFactory.getResultSet(selectBankLocations);
+
+            try {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    String userName = resultSet.getString(2);
+
+
+                }
+            } catch (SQLException ex){
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             ObjectMapper mapper = new ObjectMapper();
             BankLocation bankLocation= new BankLocation();
             bankLocation.setBranchId(001);
@@ -66,12 +86,7 @@ public class HttpRequestHandler {
             BufferedReader br = new BufferedReader(isr);
             String query = br.readLine();
 
-            ObjectMapper mapper = new ObjectMapper();
-
-
-            BankLocation bankLocation = mapper.readValue(query,BankLocation.class);
-            String insertBankLocation="INSERT INTO BANK_LOCATION VALUES("+bankLocation.getBranchId()+","+"'"+bankLocation.getAddress().trim().toString()+"'"+")";
-            DBConnectionFactory.extecuteStatment(insertBankLocation);
+            saveBankLocation(query);
             parseQuery(query, parameters);
 
             // send response
@@ -83,7 +98,14 @@ public class HttpRequestHandler {
             os.write(response.toString().getBytes());
             os.close();
         }
-    }
+
+       private void saveBankLocation(String query) throws IOException {
+           ObjectMapper mapper = new ObjectMapper();
+           BankLocation bankLocation = mapper.readValue(query,BankLocation.class);
+           String insertBankLocation="INSERT INTO BANK_LOCATION VALUES("+bankLocation.getBranchId()+","+"'"+bankLocation.getAddress().trim().toString()+"'"+")";
+           DBConnectionFactory.extecuteStatment(insertBankLocation);
+       }
+   }
 
     public static void parseQuery(String query, Map<String,
             Object> parameters) throws UnsupportedEncodingException {

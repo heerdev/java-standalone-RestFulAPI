@@ -5,6 +5,11 @@ public class BankLocation {
     private int branchId;
     private String address;
 
+    public BankLocation(int branchId, String address) {
+        this.branchId = branchId;
+        this.address = address;
+    }
+
     public int getBranchId() {
         return branchId;
     }
