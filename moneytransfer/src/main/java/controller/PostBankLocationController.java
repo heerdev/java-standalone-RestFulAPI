@@ -30,63 +30,34 @@ public class PostBankLocationController implements HttpHandler {
         BufferedReader br = new BufferedReader(isr);
         String query = br.readLine();
 
-        saveBankLocation(query);
-        parseQuery(query, parameters);
+        int rowCount=saveBankLocation(query);
 
+        if(rowCount==0){
+            he.sendResponseHeaders(409, "Conflict".length());
+            OutputStream os = he.getResponseBody();
+            os.write("record already present".toString().getBytes());
+            os.close();
+        }else if (rowCount==1){
+            he.sendResponseHeaders(202, "create".length());
+            OutputStream os = he.getResponseBody();
+            os.write("entiry saved".toString().getBytes());
+            os.close();
+        }
         // send response
-        String response = "";
-        for (String key : parameters.keySet())
-            response += key + " = " + parameters.get(key) + "\n";
-        he.sendResponseHeaders(200, response.length());
+        he.sendResponseHeaders(400, "BAD REQUEST".length());
         OutputStream os = he.getResponseBody();
-        os.write(response.toString().getBytes());
+        os.write("NOT ALLOWED".toString().getBytes());
         os.close();
+
     }
 
-    private void saveBankLocation(String query) throws IOException {
+    private int saveBankLocation(String query) throws IOException {
+        System.out.println("Save the Bank Location entiry into DB");
         ObjectMapper mapper = new ObjectMapper();
         BankLocation bankLocation = mapper.readValue(query,BankLocation.class);
         String insertBankLocation="INSERT INTO BANK_LOCATION VALUES("+bankLocation.getBranchId()+","+"'"+bankLocation.getAddress().trim().toString()+"'"+")";
-        int rowinsterted= DBConnectionFactory.extecuteStatment(insertBankLocation);
-        System.out.println(rowinsterted);
+        return DBConnectionFactory.extecuteStatment(insertBankLocation);
     }
 
 
-    public static void parseQuery(String query, Map<String,
-            Object> parameters) throws UnsupportedEncodingException {
-
-        if (query != null) {
-            String pairs[] = query.split("[&]");
-            for (String pair : pairs) {
-                String param[] = pair.split("[=]");
-                String key = null;
-                String value = null;
-                if (param.length > 0) {
-                    key = URLDecoder.decode(param[0],
-                            System.getProperty("file.encoding"));
-                }
-
-                if (param.length > 1) {
-                    value = URLDecoder.decode(param[1],
-                            System.getProperty("file.encoding"));
-                }
-
-                if (parameters.containsKey(key)) {
-                    Object obj = parameters.get(key);
-                    if (obj instanceof List<?>) {
-                        List<String> values = (List<String>) obj;
-                        values.add(value);
-
-                    } else if (obj instanceof String) {
-                        List<String> values = new ArrayList<>();
-                        values.add((String) obj);
-                        values.add(value);
-                        parameters.put(key, values);
-                    }
-                } else {
-                    parameters.put(key, value);
-                }
-            }
-        }
-    }
 }
