@@ -28,18 +28,7 @@ static final String JDBC_DRIVER = "org.h2.Driver";
         }
     }
 
-  /*  public static Connection getConnection() {
-        try {
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to database...");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
-            System.out.println("connected to database " +connection.toString());
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return connection;
 
-    }*/
     public static void createSchemaTable(){
         System.out.println("Creating table in given database...");
 

@@ -1,5 +1,6 @@
 package util.db;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ public class  DBSchema {
     public static final String dropBillingAccount="DROP table  IF EXISTS  BILLING_ACCOUNTS";
     public static final String dropAccounts="DROP table  IF EXISTS  ACCOUNTS";
     public static final String dropAccountType="DROP table  IF EXISTS  ACCOUNT_TYPE";
+    public static final String dropPaymentTransaction="DROP table  IF EXISTS  PAYMENT_TRANSACTION";
 
 
 
@@ -19,6 +21,7 @@ public class  DBSchema {
     public static final String accounts="CREATE TABLE  ACCOUNTS (account_id INTEGER  not null, customer_id INTEGER  not null,account_type_id INTEGER  not null,account_nmer int,balance float,PRIMARY KEY (account_id))";
     public static final String accountType="CREATE TABLE  ACCOUNT_TYPE (account_type_id INTEGER  not null, account_type varchar(255),PRIMARY KEY (account_type_id))";
 
+    public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null,cr_account INTEGER not null,dr_account INTEGER not null, sender_ref varchar(255),txn_dt Date not null,amount float not null,currency varchar(255) not null, transfer_type varchar(255) not null, CrDr varchar(10) not null)";
 
     public static Set<String> cleanSchemaScript(){
         Set<String> scripts=new HashSet<String>();
@@ -27,6 +30,7 @@ public class  DBSchema {
         scripts.add(dropBillingAccount);
         scripts.add(dropAccounts);
         scripts.add(dropAccountType);
+        scripts.add(dropPaymentTransaction);
 
         return scripts;
 
@@ -38,6 +42,7 @@ public class  DBSchema {
         scripts.add(billingAccount);
         scripts.add(accounts);
         scripts.add(accountType);
+        scripts.add(paymentTransaction);
         return scripts;
 
     }
