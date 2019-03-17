@@ -5,8 +5,8 @@ import java.util.Date;
 public class PaymentTransaction {
 
     private int id;
-    private int cr_account;
-    private int dr_account;
+    private String cr_account;
+    private String dr_account;
     private String sender_ref;
     private Date txn_dt;
     private float amount;
@@ -17,7 +17,7 @@ public class PaymentTransaction {
 
     public PaymentTransaction(){};
 
-    public PaymentTransaction(int id, int cr_account, int dr_account, String sender_ref, Date txn_dt, float amount, String currency, String tranferType, String crDr) {
+    public PaymentTransaction(int id, String cr_account, String dr_account, String sender_ref, Date txn_dt, float amount, String currency, String tranferType, String crDr) {
         this.id = id;
         this.cr_account = cr_account;
         this.dr_account = dr_account;
@@ -37,19 +37,19 @@ public class PaymentTransaction {
         this.id = id;
     }
 
-    public int getCr_account() {
+    public String getCr_account() {
         return cr_account;
     }
 
-    public void setCr_account(int cr_account) {
+    public void setCr_account(String cr_account) {
         this.cr_account = cr_account;
     }
 
-    public int getDr_account() {
+    public String getDr_account() {
         return dr_account;
     }
 
-    public void setDr_account(int dr_account) {
+    public void setDr_account(String dr_account) {
         this.dr_account = dr_account;
     }
 
