@@ -2,6 +2,7 @@ package server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import database.mapper.BankLocationRowMapper;
 import factory.DBConnectionFactory;
 import model.BankLocation;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -12,10 +13,7 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HttpRequestHandler {
 
@@ -29,7 +27,7 @@ public class HttpRequestHandler {
         }
     }
 
-    public static class GetBankLocation implements HttpHandler {
+    /*public static class GetBankLocation implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             if(!t.getRequestMethod().equalsIgnoreCase("get")){
                 t.sendResponseHeaders(404, "invalid request".length());
@@ -40,21 +38,9 @@ public class HttpRequestHandler {
 
             String selectBankLocations="select * from bank_location";
             ResultSet resultSet=DBConnectionFactory.getResultSet(selectBankLocations);
+            BankLocationRowMapper bankLocationRowMapper= new BankLocationRowMapper();
+            Set<BankLocation> bankLocations=bankLocationRowMapper.dbMapper(resultSet);
 
-            try {
-                while (resultSet.next()) {
-                    int id = resultSet.getInt(1);
-                    String userName = resultSet.getString(2);
-
-
-                }
-            } catch (SQLException ex){
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
             ObjectMapper mapper = new ObjectMapper();
             BankLocation bankLocation= new BankLocation();
             bankLocation.setBranchId(001);
@@ -66,7 +52,7 @@ public class HttpRequestHandler {
             os.write(jsonInString.getBytes());
             os.close();
         }
-    }
+    }*/
 
 
    public static class PostBankLocation implements HttpHandler {

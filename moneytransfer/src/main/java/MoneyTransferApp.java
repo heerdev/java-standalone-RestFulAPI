@@ -1,5 +1,6 @@
 
 import com.sun.net.httpserver.HttpServer;
+import controller.GetBankingLocations;
 import factory.DBConnectionFactory;
 import server.HttpRequestHandler;
 
@@ -22,7 +23,7 @@ public class MoneyTransferApp {
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/test", new HttpRequestHandler.MyHandler());
-        server.createContext("/bank-locations", new HttpRequestHandler.GetBankLocation());
+        server.createContext("/bank-locations", new GetBankingLocations());
         server.createContext("/create/bank-locations",  new HttpRequestHandler.PostBankLocation());
         server.setExecutor(null); // creates a default executor
         server.start();
