@@ -48,9 +48,9 @@ public class PostBookTransferController implements HttpHandler {
 
         boolean isBookPymtSuccessful =paymentTransactionService.bookTransfer( moneyTransferBook);
         if(isBookPymtSuccessful){
-            httpResponse(httpExchange, moneyTransferBook.toString(),200 ,parameters, mapper, moneyTransferBook);
+            httpResponse(httpExchange, "Transaction Success!!".toString(),200 ,parameters, mapper, moneyTransferBook);
         }else{
-            httpResponse(httpExchange, "Money Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferBook);
+            httpResponse(httpExchange, "Transaction Failure".toString(),400 ,parameters, mapper, moneyTransferBook);
         }
      }
 
