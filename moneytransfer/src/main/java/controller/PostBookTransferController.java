@@ -58,10 +58,12 @@ public class PostBookTransferController implements HttpHandler {
                paymentTransaction.setCr_account( moneyTransferBook.getCrAccount());
                paymentTransaction.setDr_account(moneyTransferBook.getDrAccount());
                paymentTransaction.setAmount(moneyTransferBook.getAmount());
-               paymentTransaction.setCurrency("USD");
-               paymentTransaction.setTranferType("BOOK");
+               paymentTransaction.setTxn_dt(new Date());
+               paymentTransaction.setCurrency("'USD'");
+               paymentTransaction.setTranferType("'BOOK'");
 
-               String insertPaymentTransaction="INSERT INTO payment_transaction (cr_account )VALUES("+"'"+moneyTransferBook.getCrAccount()+"'"+")";
+               //pymt_txn_id INTEGER  not null auto_increment,cr_account INTEGER not null,dr_account INTEGER , sender_ref varchar(255),txn_dt Date ,amount float ,currency varchar(255) , transfer_type varchar(255) , CrDr varchar(10),bic varchar(255)
+               String insertPaymentTransaction="INSERT INTO payment_transaction (cr_account,dr_account,sender_ref,txn_dt,amount,currency,transfer_type,CrDr,bic) VALUES("+paymentTransaction.getCr_account()+","+paymentTransaction.getDr_account()+","+paymentTransaction.getSender_ref()+","+paymentTransaction.getTxn_dt()+","+paymentTransaction.getAmount()+","+paymentTransaction.getCurrency()+","+paymentTransaction.getTranferType()+","+paymentTransaction.getCrDr()+","+paymentTransaction.getBic()+")";
                 int i=DBConnectionFactory.extecuteStatment(insertPaymentTransaction);
                System.out.println(i);
            }else{
