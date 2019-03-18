@@ -50,7 +50,7 @@ public class PostWireSendingTransferController implements HttpHandler {
         if(isICDTPymtSuccessful){
             httpResponse(httpExchange, "Transaction Success!!".toString(),200 ,parameters, mapper, moneyTransferWireICDT);
         }else{
-            httpResponse(httpExchange, "Transaction Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferWireICDT);
+            httpResponse(httpExchange, "Transaction Failure!!".toString(),400 ,parameters, mapper, moneyTransferWireICDT);
         }
     }
 

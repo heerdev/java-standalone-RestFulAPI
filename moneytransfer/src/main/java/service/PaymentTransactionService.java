@@ -109,7 +109,7 @@ public class PaymentTransactionService {
                 paymentTransaction.setCr_account( moneyTransferWireRCDT.getBeneficiaryAccount());
                 paymentTransaction.setTranferType("'WIRE'");
                 paymentTransaction.setCurrency("'USD'");
-                paymentTransaction.setSender_ref(moneyTransferWireRCDT.getSenderRef());
+                paymentTransaction.setSender_ref("'"+moneyTransferWireRCDT.getSenderRef()+"'");
                 paymentTransaction.setAmount(moneyTransferWireRCDT.getAmount());
                 int pymntTxnUpdate = savePaymentTransactionDb(paymentTransaction);
 
@@ -156,7 +156,7 @@ public class PaymentTransactionService {
                 PaymentTransaction paymentTransaction= new PaymentTransaction();
                 paymentTransaction.setDr_account(moneyTransferWireICDT.getDebtorAccount());
                 paymentTransaction.setAmount(moneyTransferWireICDT.getAmount());
-                paymentTransaction.setBic(moneyTransferWireICDT.getBic());
+                paymentTransaction.setBic("'"+moneyTransferWireICDT.getBic()+"'");
                 paymentTransaction.setCurrency("'USD'");
                 paymentTransaction.setTranferType("'WIRE'");
                 int pymntTxnUpdate = savePaymentTransactionDb(paymentTransaction);
