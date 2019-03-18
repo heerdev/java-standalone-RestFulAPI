@@ -14,7 +14,7 @@ public class PaymentTransactionRowMapper {
 
         while (resultSet.next()){
 
-            paymentTransactions.add(new PaymentTransaction(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4), resultSet.getDate(5),Float.valueOf(resultSet.getString(6)),resultSet.getString(7), resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
+            paymentTransactions.add(new PaymentTransaction(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4), resultSet.getString(5),Float.valueOf(resultSet.getString(6)),resultSet.getString(7), resultSet.getString(8),resultSet.getString(9),resultSet.getString(10)));
         }
         return  paymentTransactions;
     }

@@ -8,7 +8,7 @@ public class PaymentTransaction {
     private String cr_account;
     private String dr_account;
     private String sender_ref;
-    private Date txn_dt;
+    private String txn_dt;
     private float amount;
     private String currency;
     private String tranferType;
@@ -18,7 +18,7 @@ public class PaymentTransaction {
 
     public PaymentTransaction(){};
 
-    public PaymentTransaction(int id, String cr_account, String dr_account, String sender_ref, Date txn_dt, float amount, String currency, String tranferType, String crDr, String bic) {
+    public PaymentTransaction(int id, String cr_account, String dr_account, String sender_ref, String txn_dt, float amount, String currency, String tranferType, String crDr, String bic) {
         this.id = id;
         this.cr_account = cr_account;
         this.dr_account = dr_account;
@@ -63,11 +63,11 @@ public class PaymentTransaction {
         this.sender_ref = sender_ref;
     }
 
-    public Date getTxn_dt() {
+    public String getTxn_dt() {
         return txn_dt;
     }
 
-    public void setTxn_dt(Date txn_dt) {
+    public void setTxn_dt(String txn_dt) {
         this.txn_dt = txn_dt;
     }
 
