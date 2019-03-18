@@ -52,6 +52,29 @@ static final String JDBC_DRIVER = "org.h2.Driver";
 
     }
 
+
+    public static void initialiseTable(){
+        System.out.println("Creating table in given database...");
+
+        try {
+            Statement statement = connection.createStatement();
+            for (String script: DBSchema.createDataScript()) {
+                statement.executeUpdate(script);
+                System.out.println(">>"+script);
+            }
+
+            for (String script: DBSchema.createTableScript()) {
+                statement.executeUpdate(script);
+                System.out.println(">>"+script);
+            }
+
+            System.out.println("Created table in given database...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static int extecuteStatment(String query){
         System.out.println("executing statement " +query);
         int rowCount=0;

@@ -23,6 +23,14 @@ public class  DBSchema {
 
     public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null auto_increment,cr_account INTEGER not null,dr_account INTEGER , sender_ref varchar(255),txn_dt varchar(255) ,amount float ,currency varchar(255) , transfer_type varchar(255) , CrDr varchar(10),bic varchar(255),PRIMARY KEY (pymt_txn_id))";
 
+
+
+
+    public static final String createAccoun1="INSERT INTO ACCOUNTS values(1,2,3,'1111',100)";
+    public static final String createAccoun2="INSERT INTO ACCOUNTS values(10,20,1,'1112',50)";
+    public static final String createCustomer1="INSERT INTO CUSTOMERS  values(2,'zubair','mumbai')";
+    public static final String createCustomer2="IINSERT INTO CUSTOMERS  values(20,'john','london')";
+
     public static Set<String> cleanSchemaScript(){
         Set<String> scripts=new HashSet<String>();
         scripts.add(dropBankLocation);
@@ -43,6 +51,17 @@ public class  DBSchema {
         scripts.add(accounts);
         scripts.add(accountType);
         scripts.add(paymentTransaction);
+        return scripts;
+
+    }
+
+    public static Set<String> createDataScript(){
+        Set<String> scripts=new HashSet<String>();
+        scripts.add(createAccoun1);
+        scripts.add(createAccoun2);
+        scripts.add(createCustomer1);
+        scripts.add(createCustomer2);
+
         return scripts;
 
     }

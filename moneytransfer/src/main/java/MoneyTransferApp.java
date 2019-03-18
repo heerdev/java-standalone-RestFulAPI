@@ -1,6 +1,7 @@
 
 import com.sun.net.httpserver.HttpServer;
 import controller.*;
+import factory.DBConnectionFactory;
 
 
 import java.io.*;
@@ -11,7 +12,8 @@ public class MoneyTransferApp {
 
     static {
 
-       //DBConnectionFactory.createSchemaTable();
+       DBConnectionFactory.createSchemaTable();
+       DBConnectionFactory.initialiseTable();
     }
 
     public static void main(String[] args) throws IOException {
