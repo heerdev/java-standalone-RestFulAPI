@@ -3,6 +3,7 @@ package controller;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import model.Accounts;
+import model.MoneyTransferWireICDT;
 import model.MoneyTransferWireRCDT;
 import org.codehaus.jackson.map.ObjectMapper;
 import service.PaymentTransactionService;
@@ -41,21 +42,20 @@ public class PostWireSendingTransferController implements HttpHandler {
         String query = br.readLine();
         System.out.println("Request Received :"+query);
         ObjectMapper mapper = new ObjectMapper();
-        Set<Accounts> accounts= new HashSet<>();
-        MoneyTransferWireRCDT moneyTransferWireRCDT = mapper.readValue(query, MoneyTransferWireRCDT.class);
-        System.out.println(moneyTransferWireRCDT.toString());
+        MoneyTransferWireICDT moneyTransferWireICDT = mapper.readValue(query, MoneyTransferWireICDT.class);
+        System.out.println(moneyTransferWireICDT.toString());
 
 
-        boolean isBookPymtSuccessful =paymentTransactionService.wireTransferRCDT( moneyTransferWireRCDT);
-        if(isBookPymtSuccessful){
-            httpResponse(httpExchange, "Transaction Success!!".toString(),200 ,parameters, mapper, moneyTransferWireRCDT);
+        boolean isICDTPymtSuccessful =paymentTransactionService.wireTransferICDT( moneyTransferWireICDT);
+        if(isICDTPymtSuccessful){
+            httpResponse(httpExchange, "Transaction Success!!".toString(),200 ,parameters, mapper, moneyTransferWireICDT);
         }else{
-            httpResponse(httpExchange, "Transaction Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferWireRCDT);
+            httpResponse(httpExchange, "Transaction Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferWireICDT);
         }
     }
 
 
-    private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferWireRCDT moneyTransferWireRCDT) throws IOException {
+    private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferWireICDT moneyTransferWireICDT) throws IOException {
         String jsonInString = mapper.writeValueAsString(message);
         String response = jsonInString;
         for (String key : parameters.keySet())

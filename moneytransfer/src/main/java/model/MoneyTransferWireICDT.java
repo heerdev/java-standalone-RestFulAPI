@@ -48,4 +48,14 @@ public class MoneyTransferWireICDT {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "MoneyTransferWireICDT{" +
+                "isWirePayment=" + isWirePayment +
+                ", debtorAccount='" + debtorAccount + '\'' +
+                ", bic='" + bic + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

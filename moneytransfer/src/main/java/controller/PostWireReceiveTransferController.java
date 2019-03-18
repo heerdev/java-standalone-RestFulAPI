@@ -47,8 +47,8 @@ public class PostWireReceiveTransferController implements HttpHandler {
         System.out.println(moneyTransferWireRCDT.toString());
 
 
-        boolean isBookPymtSuccessful =paymentTransactionService.wireTransferRCDT( moneyTransferWireRCDT);
-        if(isBookPymtSuccessful){
+        boolean isRCDTPymtSuccessful =paymentTransactionService.wireTransferRCDT( moneyTransferWireRCDT);
+        if(isRCDTPymtSuccessful){
             httpResponse(httpExchange, "Transaction Success!!".toString(),200 ,parameters, mapper, moneyTransferWireRCDT);
         }else{
             httpResponse(httpExchange, "Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferWireRCDT);

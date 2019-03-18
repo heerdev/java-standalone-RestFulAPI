@@ -79,4 +79,17 @@ public class MoneyTransferWireRCDT {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "MoneyTransferWireRCDT{" +
+                "isWirePayment=" + isWirePayment +
+                ", beneficiaryAccount='" + beneficiaryAccount + '\'' +
+                ", benificiaryBank='" + benificiaryBank + '\'' +
+                ", isScheduledPayment=" + isScheduledPayment +
+                ", scheuledDate=" + scheuledDate +
+                ", senderRef='" + senderRef + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

@@ -19,6 +19,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -37,7 +38,9 @@ public class TestController {
 
         CloseableHttpResponse response = client.execute(httpPost);
         assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
-        System.out.println(response);
+        String responseBody = EntityUtils.toString(response.getEntity());
+        assertThat(responseBody, containsString("Transaction Success"));
+
         client.close();
     }
 }
