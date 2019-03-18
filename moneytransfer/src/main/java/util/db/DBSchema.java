@@ -21,7 +21,7 @@ public class  DBSchema {
     public static final String accounts="CREATE TABLE  ACCOUNTS (account_id INTEGER  not null, customer_id INTEGER  not null,account_type_id INTEGER  not null,account_number int,balance float,PRIMARY KEY (account_id))";
     public static final String accountType="CREATE TABLE  ACCOUNT_TYPE (account_type_id INTEGER  not null, account_type varchar(255),PRIMARY KEY (account_type_id))";
 
-    public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null,cr_account INTEGER not null,dr_account INTEGER not null, sender_ref varchar(255),txn_dt Date not null,amount float not null,currency varchar(255) not null, transfer_type varchar(255) not null, CrDr varchar(10),bic varchar(255),PRIMARY KEY (pymt_txn_id))";
+    public static final String paymentTransaction="CREATE TABLE PAYMENT_TRANSACTION(pymt_txn_id INTEGER  not null auto_increment,cr_account INTEGER not null,dr_account INTEGER , sender_ref varchar(255),txn_dt Date ,amount float ,currency varchar(255) , transfer_type varchar(255) , CrDr varchar(10),bic varchar(255),PRIMARY KEY (pymt_txn_id))";
 
     public static Set<String> cleanSchemaScript(){
         Set<String> scripts=new HashSet<String>();

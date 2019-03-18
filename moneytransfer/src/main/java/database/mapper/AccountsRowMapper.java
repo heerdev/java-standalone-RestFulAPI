@@ -1,13 +1,17 @@
 package database.mapper;
 
+import edu.umd.cs.findbugs.annotations.DefaultAnnotationForMethods;
+import javafx.beans.DefaultProperty;
 import model.Accounts;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AccountsRowMapper {
 
+public class AccountsRowMapper implements DBEntityMapper<Accounts> {
+
+    @Override
     public Set<Accounts> dbMapper(ResultSet resultSet) throws SQLException {
         Set<Accounts> accounts= new HashSet<>();
 
@@ -18,4 +22,7 @@ public class AccountsRowMapper {
 
         return  accounts;
     }
+
+
+
 }
