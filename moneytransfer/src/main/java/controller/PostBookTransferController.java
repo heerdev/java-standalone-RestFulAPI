@@ -2,22 +2,15 @@ package controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import database.mapper.AccountsRowMapper;
-import database.mapper.DBEntityMapper;
-import factory.DBConnectionFactory;
 import model.Accounts;
-import model.BankLocation;
 import model.MoneyTransferBook;
-import model.PaymentTransaction;
 import org.codehaus.jackson.map.ObjectMapper;
 import service.PaymentTransactionService;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+i
 import java.util.*;
 
 public class PostBookTransferController implements HttpHandler {
@@ -49,44 +42,20 @@ public class PostBookTransferController implements HttpHandler {
         MoneyTransferBook moneyTransferBook = mapper.readValue(query,MoneyTransferBook.class);
         System.out.println(moneyTransferBook.toString());
 
-        //logic for payment transaction goes here
 
-        //1. check for both creditor and debtor account exist
-        ResultSet resultSet= DBConnectionFactory.getResultSet("select * from accounts where account_id="+moneyTransferBook.getCrAccount());
-        DBEntityMapper<Accounts> dbEntityMapper= new AccountsRowMapper();
-        try {
-            accounts= dbEntityMapper.dbMapper(resultSet);
-            Optional<Accounts> account=accounts.stream().findFirst();
-           if(account.get().getBalance()>moneyTransferBook.getAmount()) {
-               //deduct the money from the creditor
-               float currentBal=account.get().getBalance() - moneyTransferBook.getAmount();
-               account.get().setBalance(currentBal);
-
-               //update payment transaction table
-               PaymentTransaction paymentTransaction= new PaymentTransaction();
-               paymentTransaction.setCr_account( moneyTransferBook.getCrAccount());
-               paymentTransaction.setDr_account(moneyTransferBook.getDrAccount());
-               paymentTransaction.setAmount(moneyTransferBook.getAmount());
-
-               paymentTransaction.setCurrency("'USD'");
-               paymentTransaction.setTranferType("'BOOK'");
-               int i = paymentTransactionService.savePaymentTransacitonDb(paymentTransaction);
-               System.out.println(i);
-           }else{
-               httpResponse(httpExchange, "There are more than one accounts",400 ,parameters, mapper, moneyTransferBook);
-           }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        boolean isBookPymtSuccessful =paymentTransactionService.booktTransfer( moneyTransferBook);
+        if(isBookPymtSuccessful){
+            httpResponse(httpExchange, moneyTransferBook.toString(),200 ,parameters, mapper, moneyTransferBook);
+        }else{
+            httpResponse(httpExchange, "Money Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferBook);
         }
 
-        //2. get current account balancex
 
-        // send response
-        //MoneyTransferBook moneyTransferBook= new MoneyTransferBook(true,"10","1",12.12F,false,null)
-        httpResponse(httpExchange, moneyTransferBook.toString(),200 ,parameters, mapper, moneyTransferBook);
+
 
     }
+
+
 
 
     private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferBook moneyTransferBook) throws IOException {

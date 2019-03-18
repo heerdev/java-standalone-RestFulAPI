@@ -5,10 +5,10 @@ public class Accounts {
     private int accountId;
     private int customerId;
     private int accountTypeId;
-    private int accountNumber;
+    private String accountNumber;
     private float balance;
 
-    public Accounts(int accountId, int customerId, int accountTypeId, int accountNumber, float balance) {
+    public Accounts(int accountId, int customerId, int accountTypeId, String accountNumber, float balance) {
         this.accountId = accountId;
         this.customerId = customerId;
         this.accountTypeId = accountTypeId;
@@ -42,11 +42,11 @@ public class Accounts {
         this.accountTypeId = accountTypeId;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

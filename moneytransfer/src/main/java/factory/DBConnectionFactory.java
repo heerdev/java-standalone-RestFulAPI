@@ -22,6 +22,7 @@ static final String JDBC_DRIVER = "org.h2.Driver";
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database...");
             connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection.setAutoCommit(false);
             System.out.println("connected to database " +connection.toString());
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -79,6 +80,25 @@ static final String JDBC_DRIVER = "org.h2.Driver";
      return resultSet;
     }
 
+    public static void commit()  {
+        try {
+
+            connection.commit();
+            System.out.println("committed to DB is closed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void rollBack()  {
+        try {
+
+            connection.rollback();
+            System.out.println("committed to DB is closed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static void closeConnection()  {
         try {
             Statement statement = connection.createStatement();

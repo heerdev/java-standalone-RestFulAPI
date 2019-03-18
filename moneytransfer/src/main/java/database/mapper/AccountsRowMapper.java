@@ -17,7 +17,7 @@ public class AccountsRowMapper implements DBEntityMapper<Accounts> {
 
         while (resultSet.next()){
 
-            accounts.add(new Accounts(resultSet.getInt(1),resultSet.getInt(2),resultSet.getInt(3),resultSet.getInt(4),Float.valueOf(resultSet.getString(5)) ));
+            accounts.add(new Accounts(resultSet.getInt(1),resultSet.getInt(2),resultSet.getInt(3),resultSet.getString(4),Float.valueOf(resultSet.getString(5)) ));
         }
 
         return  accounts;
