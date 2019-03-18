@@ -2,15 +2,18 @@ package controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
 import model.Accounts;
 import model.MoneyTransferBook;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import service.PaymentTransactionService;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-i
+
 import java.util.*;
 
 public class PostBookTransferController implements HttpHandler {
@@ -49,13 +52,7 @@ public class PostBookTransferController implements HttpHandler {
         }else{
             httpResponse(httpExchange, "Money Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferBook);
         }
-
-
-
-
-    }
-
-
+     }
 
 
     private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferBook moneyTransferBook) throws IOException {
