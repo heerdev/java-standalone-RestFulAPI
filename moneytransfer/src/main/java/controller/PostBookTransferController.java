@@ -33,6 +33,11 @@ public class PostBookTransferController implements HttpHandler {
         MoneyTransferBook moneyTransferBook = mapper.readValue(query,MoneyTransferBook.class);
         System.out.println(moneyTransferBook.toString());
 
+        //logic for payment transaction goes here
+
+        //1. get current account balance
+
+
         // send response
         String jsonInString = mapper.writeValueAsString(moneyTransferBook);
         String response = jsonInString;

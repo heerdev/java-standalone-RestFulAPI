@@ -1,20 +1,21 @@
 package model;
 
 import java.util.Date;
-
 public class MoneyTransferBook {
 
     private boolean isBookPayment;
-    private String beneficiaryAccount;
+    private String drAccount;
+    private String crAccount;
     private float amount;
     private boolean isScheduledPayment;
     private Date paymentDate;
 
     public MoneyTransferBook(){};
 
-    public MoneyTransferBook(boolean isBookPayment, String beneficiaryAccount, float amount, boolean isScheduledPayment, Date paymentDate) {
+    public MoneyTransferBook(boolean isBookPayment, String drAccount, String crAccount, float amount, boolean isScheduledPayment, Date paymentDate) {
         this.isBookPayment = isBookPayment;
-        this.beneficiaryAccount = beneficiaryAccount;
+        this.drAccount = drAccount;
+        this.crAccount = crAccount;
         this.amount = amount;
         this.isScheduledPayment = isScheduledPayment;
         this.paymentDate = paymentDate;
@@ -25,15 +26,23 @@ public class MoneyTransferBook {
     }
 
     public void setBookPayment(boolean bookPayment) {
-        this.isBookPayment = bookPayment;
+        isBookPayment = bookPayment;
     }
 
-    public String getBeneficiaryAccount() {
-        return beneficiaryAccount;
+    public String getDrAccount() {
+        return drAccount;
     }
 
-    public void setBeneficiaryAccount(String beneficiaryAccount) {
-        this.beneficiaryAccount = beneficiaryAccount;
+    public void setDrAccount(String drAccount) {
+        this.drAccount = drAccount;
+    }
+
+    public String getCrAccount() {
+        return crAccount;
+    }
+
+    public void setCrAccount(String crAccount) {
+        this.crAccount = crAccount;
     }
 
     public float getAmount() {
@@ -49,7 +58,7 @@ public class MoneyTransferBook {
     }
 
     public void setScheduledPayment(boolean scheduledPayment) {
-        this.isScheduledPayment = scheduledPayment;
+        isScheduledPayment = scheduledPayment;
     }
 
     public Date getPaymentDate() {
@@ -58,16 +67,5 @@ public class MoneyTransferBook {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
-    }
-
-    @Override
-    public String toString() {
-        return "MoneyTransferBook{" +
-                "isBookPayment=" + isBookPayment +
-                ", beneficiaryAccount='" + beneficiaryAccount + '\'' +
-                ", amount=" + amount +
-                ", isScheduledPayment=" + isScheduledPayment +
-                ", paymentDate=" + paymentDate +
-                '}';
     }
 }

@@ -12,7 +12,7 @@ public class MoneyTransferApp {
 
     static {
 
-       DBConnectionFactory.createSchemaTable();
+       //DBConnectionFactory.createSchemaTable();
     }
 
     public static void main(String[] args) throws IOException {
