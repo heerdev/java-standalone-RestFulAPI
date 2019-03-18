@@ -13,11 +13,11 @@ public class MoneyTransferApp {
     static {
 
        DBConnectionFactory.createSchemaTable();
-       DBConnectionFactory.initialiseTable();
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Started http server as url localhost:8080!");
+        System.out.println("\\n----------------------------------------------------------\\n\\t\" +\n" +
+                "                \"Application '{}' is running! Access URLs:http://localhost:8080" );
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/book-transfer",  new PostBookTransferController());
         server.createContext("/wire-transfer/rcdt",  new PostWireReceiveTransferController());

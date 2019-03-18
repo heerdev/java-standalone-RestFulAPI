@@ -44,6 +44,10 @@ static final String JDBC_DRIVER = "org.h2.Driver";
                 statement.executeUpdate(script);
                 System.out.println(">>"+script);
             }
+            for (String script: DBSchema.createDataScript()) {
+                statement.executeUpdate(script);
+                System.out.println(">>"+script);
+            }
 
             System.out.println("Created table in given database...");
         } catch (SQLException e) {

@@ -8,6 +8,6 @@ public class TestController {
 
     @BeforeClass
     public static void init() {
-       MoneyTr
+
     }
 }
