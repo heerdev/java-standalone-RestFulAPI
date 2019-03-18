@@ -7,7 +7,7 @@ mvn clean install -DskipTests exec:java
 Please start the app before running the API test
 mvn clean test
 
-## Types money transfer desinged for the app
+## Types of money transfer desinged for the app
 There are 2 types pf transfer
 1. Book transfer
 2. ICDT - outing wire transfer
