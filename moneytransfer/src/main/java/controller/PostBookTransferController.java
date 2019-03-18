@@ -10,6 +10,7 @@ import model.BankLocation;
 import model.MoneyTransferBook;
 import model.PaymentTransaction;
 import org.codehaus.jackson.map.ObjectMapper;
+import service.PaymentTransactionService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +18,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class PostBookTransferController implements HttpHandler {
+
+    private  PaymentTransactionService paymentTransactionService;
+
+
+    public PostBookTransferController(){
+        this.paymentTransactionService= new PaymentTransactionService();
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -62,14 +70,7 @@ public class PostBookTransferController implements HttpHandler {
 
                paymentTransaction.setCurrency("'USD'");
                paymentTransaction.setTranferType("'BOOK'");
-
-               String pattern = "dd-MM-yyyy hh:mm:ss";
-               SimpleDateFormat simpleDateFormat =
-                       new SimpleDateFormat(pattern);
-               paymentTransaction.setTxn_dt(simpleDateFormat.format(new Date()));
-               //pymt_txn_id INTEGER  not null auto_increment,cr_account INTEGER not null,dr_account INTEGER , sender_ref varchar(255),txn_dt Date ,amount float ,currency varchar(255) , transfer_type varchar(255) , CrDr varchar(10),bic varchar(255)
-               String insertPaymentTransaction="INSERT INTO payment_transaction (cr_account,dr_account,sender_ref,txn_dt,amount,currency,transfer_type,CrDr,bic) VALUES("+paymentTransaction.getCr_account()+","+paymentTransaction.getDr_account()+","+paymentTransaction.getSender_ref()+",'"+paymentTransaction.getTxn_dt()+"',"+paymentTransaction.getAmount()+","+paymentTransaction.getCurrency()+","+paymentTransaction.getTranferType()+","+paymentTransaction.getCrDr()+","+paymentTransaction.getBic()+")";
-                int i=DBConnectionFactory.extecuteStatment(insertPaymentTransaction);
+               int i = paymentTransactionService.savePaymentTransacitonDb(paymentTransaction);
                System.out.println(i);
            }else{
                httpResponse(httpExchange, "There are more than one accounts",400 ,parameters, mapper, moneyTransferBook);
@@ -86,6 +87,7 @@ public class PostBookTransferController implements HttpHandler {
         httpResponse(httpExchange, moneyTransferBook.toString(),200 ,parameters, mapper, moneyTransferBook);
 
     }
+
 
     private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferBook moneyTransferBook) throws IOException {
         String jsonInString = mapper.writeValueAsString(message);
