@@ -2,10 +2,8 @@ package controller;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
 import model.Accounts;
-import model.MoneyTransferBook;
-
+import model.MoneyTransferWireRCDT;
 import org.codehaus.jackson.map.ObjectMapper;
 import service.PaymentTransactionService;
 
@@ -13,15 +11,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+public class PostWireSendingTransferController implements HttpHandler {
 
-public class PostBookTransferController implements HttpHandler {
-
-    private  PaymentTransactionService paymentTransactionService;
+    private PaymentTransactionService paymentTransactionService;
 
 
-    public PostBookTransferController(){
+    public PostWireSendingTransferController(){
         this.paymentTransactionService= new PaymentTransactionService();
     }
 
@@ -42,20 +42,20 @@ public class PostBookTransferController implements HttpHandler {
         System.out.println("Request Received :"+query);
         ObjectMapper mapper = new ObjectMapper();
         Set<Accounts> accounts= new HashSet<>();
-        MoneyTransferBook moneyTransferBook = mapper.readValue(query,MoneyTransferBook.class);
-        System.out.println(moneyTransferBook.toString());
+        MoneyTransferWireRCDT moneyTransferWireRCDT = mapper.readValue(query, MoneyTransferWireRCDT.class);
+        System.out.println(moneyTransferWireRCDT.toString());
 
 
-        boolean isBookPymtSuccessful =paymentTransactionService.bookTransfer( moneyTransferBook);
+        boolean isBookPymtSuccessful =paymentTransactionService.wireTransferRCDT( moneyTransferWireRCDT);
         if(isBookPymtSuccessful){
-            httpResponse(httpExchange, moneyTransferBook.toString(),200 ,parameters, mapper, moneyTransferBook);
+            httpResponse(httpExchange, moneyTransferWireRCDT.toString(),200 ,parameters, mapper, moneyTransferWireRCDT);
         }else{
-            httpResponse(httpExchange, "Money Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferBook);
+            httpResponse(httpExchange, "Money Transfer Unsuccesfull".toString(),400 ,parameters, mapper, moneyTransferWireRCDT);
         }
-     }
+    }
 
 
-    private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferBook moneyTransferBook) throws IOException {
+    private void httpResponse(HttpExchange httpExchange, String message, int status, Map<String, Object> parameters, ObjectMapper mapper, MoneyTransferWireRCDT moneyTransferWireRCDT) throws IOException {
         String jsonInString = mapper.writeValueAsString(message);
         String response = jsonInString;
         for (String key : parameters.keySet())
@@ -65,4 +65,5 @@ public class PostBookTransferController implements HttpHandler {
         os.write(response.getBytes());
         os.close();
     }
+
 }

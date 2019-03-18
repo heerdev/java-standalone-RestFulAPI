@@ -2,24 +2,26 @@ package model;
 
 import java.util.Date;
 
-public class MoneyTransferWire {
+public class MoneyTransferWireRCDT {
 
     private boolean isWirePayment;
     private String beneficiaryAccount;
     private String benificiaryBank;
     private boolean isScheduledPayment;
     private Date scheuledDate;
-    private String bic;
+    private String senderRef;
+    private float amount;
 
-    public MoneyTransferWire(){}
+    public MoneyTransferWireRCDT(){}
 
-    public MoneyTransferWire(boolean isWirePayment, String beneficiaryAccount, String benificiaryBank, boolean isScheduledPayment, Date scheuledDate, String bic) {
+    public MoneyTransferWireRCDT(boolean isWirePayment, String beneficiaryAccount, String benificiaryBank, boolean isScheduledPayment, Date scheuledDate, String senderRef, float amount) {
         this.isWirePayment = isWirePayment;
         this.beneficiaryAccount = beneficiaryAccount;
         this.benificiaryBank = benificiaryBank;
         this.isScheduledPayment = isScheduledPayment;
         this.scheuledDate = scheuledDate;
-        this.bic = bic;
+        this.senderRef = senderRef;
+        this.amount = amount;
     }
 
     public boolean isWirePayment() {
@@ -62,11 +64,19 @@ public class MoneyTransferWire {
         this.scheuledDate = scheuledDate;
     }
 
-    public String getBic() {
-        return bic;
+    public String getSenderRef() {
+        return senderRef;
     }
 
-    public void setBic(String bic) {
-        this.bic = bic;
+    public void setSenderRef(String senderRef) {
+        this.senderRef = senderRef;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 }
