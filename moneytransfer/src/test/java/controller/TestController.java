@@ -8,6 +8,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
@@ -21,9 +22,14 @@ public class TestController {
     HttpPost httpPost;
 
     @Before
-    public void init(){
+    public void initHttpClient(){
         client  = HttpClients.createDefault();
 
+    }
+
+    @After
+    public void closeHttpClient() throws IOException {
+        client.close();
     }
 
 
@@ -34,7 +40,6 @@ public class TestController {
         String json = "{\"drAccount\":\"1112\",\"crAccount\":\"1111\",\"amount\":1,\"paymentDate\":null,\"scheduledPayment\":false,\"bookPayment\":true}";
         assertSuccess(json, httpPost, client);
 
-        client.close();
     }
 
     @Test
@@ -44,7 +49,6 @@ public class TestController {
         String json = "{\"beneficiaryAccount\":\"1111\",\"benificiaryBank\":\"CHASE\",\"scheuledDate\":null,\"senderRef\":\"SSSS\",\"amount\":100.0,\"wirePayment\":true,\"scheduledPayment\":false}";
         assertSuccess(json, httpPost, client);
 
-        client.close();
     }
 
     @Test
@@ -55,7 +59,6 @@ public class TestController {
         String json = "{\"debtorAccount\":\"1111\",\"bic\":\"HDXY\",\"amount\":12.0,\"wirePayment\":true}";
         assertSuccess(json, httpPost, client);
 
-        client.close();
     }
 
 
