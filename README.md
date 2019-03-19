@@ -15,9 +15,14 @@ There are 2 types pf transfer
 
 ##API
 BOOK
+<br>
 URl: http://localhost:8080/book-transfer
+<br>
 Body:
+<br>
 {"drAccount":"1112","crAccount":"1111","amount":1,"paymentDate":null,"scheduledPayment":false,"bookPayment":true}
+<br>
+curl -X POST -i http://localhost:8080/book-transfer --data '{"drAccount":"10","crAccount":"1","amount":12.12,"paymentDate":null,"scheduledPayment":false,"bookPayment":true}'
 
 RCDT
 URL:http://localhost:8080/wire-transfer/rcdt
