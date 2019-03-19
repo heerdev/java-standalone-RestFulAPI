@@ -52,7 +52,7 @@ public class TestController {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:8080/wire-transfer/icdt");
 
-        String json = "{\"debtorAccount\":\"1111\",\"bic\":\"xxxx\",\"amount\":12.0,\"wirePayment\":true}";
+        String json = "{\"debtorAccount\":\"1111\",\"bic\":\"HDXY\",\"amount\":12.0,\"wirePayment\":true}";
         assertSuccess(json, httpPost, client);
 
         client.close();
