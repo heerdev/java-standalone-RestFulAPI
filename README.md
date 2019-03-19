@@ -22,16 +22,24 @@ Body:
 <br>
 {"drAccount":"1112","crAccount":"1111","amount":1,"paymentDate":null,"scheduledPayment":false,"bookPayment":true}
 <br>
-curl -X POST -i http://localhost:8080/book-transfer --data '{"drAccount":"10","crAccount":"1","amount":12.12,"paymentDate":null,"scheduledPayment":false,"bookPayment":true}'
+
+curl -X POST -i http://localhost:8080/book-transfer --data'{"drAccount":"10","crAccount":"1","amount":12.12,"paymentDate":null,"scheduledPayment":false,"bookPayment":true}'
 
 RCDT
+<br>
 URL:http://localhost:8080/wire-transfer/rcdt
+<br>
 Body:
+<br>
 {"beneficiaryAccount":"1111","benificiaryBank":"CHASE","scheuledDate":null,"senderRef":"SSSS","amount":100.0,"wirePayment":true,"scheduledPayment":false}
 
+<br>
 ICDT
+<br>
 URL: http://localhost:8080/wire-transfer/icdt
+<br>
 Body:
+<br>
 {"debtorAccount":"1111","bic":"xxxx","amount":12.0,"wirePayment":true}
 
 
